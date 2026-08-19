@@ -64,7 +64,7 @@ function App() {
         <h1>Cloudflare Pages · Cache-Control Lab</h1>
         <p>
           Fetch each asset below (open DevTools → Network to watch{' '}
-          <code>cf-cache-status</code>). Static rules live in{' '}
+          <code>Cache-Control</code>). Static rules live in{' '}
           <code>public/_headers</code>; the dynamic one comes from a Pages
           Function so you can change the header without redeploying.
         </p>
@@ -88,7 +88,7 @@ function App() {
                     <ul>
                       {r.headers
                         .filter(([n]) =>
-                          ['cache-control', 'cf-cache-status', 'age', 'etag', 'x-cache-lab'].includes(n),
+                          ['cache-control', 'age', 'etag', 'x-cache-lab'].includes(n),
                         )
                         .map(([n, v]) => (
                           <li key={n}>
@@ -111,9 +111,8 @@ function App() {
           edge than <code>max-age</code> sets for the browser. This probe
           always fetches with <code>cache: 'no-store'</code> so every click
           hits the network instead of your browser's own HTTP cache — that
-          way <code>X-Cache</code> / <code>cf-cache-status</code> reflect the
-          edge Cache API simulation, not a locally-cached response replaying
-          old headers.
+          way <code>X-Cache</code> reflects the edge Cache API simulation, not
+          a locally-cached response replaying old headers.
         </p>
         <div className="controls">
           <label>
