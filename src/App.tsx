@@ -16,6 +16,10 @@ const CACHE_PRESETS = [
   'public, max-age=3600',
   'private, max-age=30',
   'public, max-age=15, stale-while-revalidate=60',
+  'public, max-age=0, s-maxage=60',
+  'public, max-age=10, s-maxage=300',
+  'public, max-age=3600, s-maxage=10',
+  'public, s-maxage=60, must-revalidate',
 ]
 
 type FetchResult = {
@@ -50,7 +54,7 @@ function App() {
 
   useEffect(() => {
     STATIC_ASSETS.forEach((asset) => probe(asset.path, asset.path))
-    // probe(dynamicUrl(), 'dynamic') // disabled: /api/dynamic is a Cloudflare Pages Function, not available on Vercel
+    probe(dynamicUrl(), 'dynamic')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -102,6 +106,12 @@ function App() {
 
       <section>
         <h2>Dynamic asset (Pages Function, live-tunable)</h2>
+        <p>
+          Presets with <code>s-maxage</code> set a different TTL for the CDN
+          edge than <code>max-age</code> sets for the browser — reload to see
+          the browser's own cache behavior, watch <code>X-Cache</code> /{' '}
+          <code>cf-cache-status</code> to see the edge's.
+        </p>
         <div className="controls">
           <label>
             Cache-Control
