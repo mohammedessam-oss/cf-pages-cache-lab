@@ -1,0 +1,1 @@
+{ "label": "no-cache.json", "rule": "Cache-Control: no-store", "note": "Never cached. Every fetch hits origin/edge fresh." }

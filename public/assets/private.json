@@ -1,0 +1,1 @@
+{ "label": "private.json", "rule": "Cache-Control: private, max-age=60", "note": "Browser cache OK; Cloudflare edge must NOT cache." }

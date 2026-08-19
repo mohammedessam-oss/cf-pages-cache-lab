@@ -1,0 +1,1 @@
+{ "label": "swr.json", "rule": "Cache-Control: public, max-age=5, stale-while-revalidate=30", "note": "Fresh 5s, then serves stale up to 30s while refetching in background." }

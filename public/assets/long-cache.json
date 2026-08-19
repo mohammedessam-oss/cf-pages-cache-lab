@@ -1,0 +1,1 @@
+{ "label": "long-cache.json", "rule": "Cache-Control: public, max-age=3600", "note": "Fresh for 1 hour at edge and browser." }

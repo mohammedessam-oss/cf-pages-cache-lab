@@ -1,0 +1,1 @@
+{ "label": "short-cache.json", "rule": "Cache-Control: public, max-age=10", "note": "Fresh for 10s, then revalidated." }
