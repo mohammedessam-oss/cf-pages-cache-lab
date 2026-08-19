@@ -34,9 +34,9 @@ function App() {
   const [cachePreset, setCachePreset] = useState(CACHE_PRESETS[1])
   const [useEtag, setUseEtag] = useState(false)
 
-  async function probe(path: string, key: string) {
+  async function probe(path: string, key: string, opts?: RequestInit) {
     const start = performance.now()
-    const res = await fetch(path, { cache: 'default' })
+    const res = await fetch(path, { cache: 'default', ...opts })
     const timing = performance.now() - start
     const headers: [string, string][] = []
     res.headers.forEach((value, name) => headers.push([name, value]))
@@ -54,7 +54,7 @@ function App() {
 
   useEffect(() => {
     STATIC_ASSETS.forEach((asset) => probe(asset.path, asset.path))
-    probe(dynamicUrl(), 'dynamic')
+    probe(dynamicUrl(), 'dynamic', { cache: 'no-store' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -108,9 +108,12 @@ function App() {
         <h2>Dynamic asset (Pages Function, live-tunable)</h2>
         <p>
           Presets with <code>s-maxage</code> set a different TTL for the CDN
-          edge than <code>max-age</code> sets for the browser — reload to see
-          the browser's own cache behavior, watch <code>X-Cache</code> /{' '}
-          <code>cf-cache-status</code> to see the edge's.
+          edge than <code>max-age</code> sets for the browser. This probe
+          always fetches with <code>cache: 'no-store'</code> so every click
+          hits the network instead of your browser's own HTTP cache — that
+          way <code>X-Cache</code> / <code>cf-cache-status</code> reflect the
+          edge Cache API simulation, not a locally-cached response replaying
+          old headers.
         </p>
         <div className="controls">
           <label>
@@ -131,7 +134,7 @@ function App() {
             />
             send ETag
           </label>
-          <button onClick={() => probe(dynamicUrl(), 'dynamic')}>Fetch</button>
+          <button onClick={() => probe(dynamicUrl(), 'dynamic', { cache: 'no-store' })}>Fetch</button>
         </div>
         {results.dynamic && (
           <div className="result">
