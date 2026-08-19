@@ -50,7 +50,7 @@ function App() {
 
   useEffect(() => {
     STATIC_ASSETS.forEach((asset) => probe(asset.path, asset.path))
-    probe(dynamicUrl(), 'dynamic')
+    // probe(dynamicUrl(), 'dynamic') // disabled: /api/dynamic is a Cloudflare Pages Function, not available on Vercel
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

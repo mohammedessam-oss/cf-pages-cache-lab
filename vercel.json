@@ -1,0 +1,52 @@
+{
+  "headers": [
+    {
+      "source": "/assets/no-cache.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "X-Cache-Lab", "value": "no-cache" }
+      ]
+    },
+    {
+      "source": "/assets/short-cache.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=10" },
+        { "key": "X-Cache-Lab", "value": "short-cache" }
+      ]
+    },
+    {
+      "source": "/assets/long-cache.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "X-Cache-Lab", "value": "long-cache" }
+      ]
+    },
+    {
+      "source": "/assets/immutable.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Cache-Lab", "value": "immutable" }
+      ]
+    },
+    {
+      "source": "/assets/swr.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=5, stale-while-revalidate=30" },
+        { "key": "X-Cache-Lab", "value": "swr" }
+      ]
+    },
+    {
+      "source": "/assets/private.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, max-age=60" },
+        { "key": "X-Cache-Lab", "value": "private" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Cache-Lab-Global", "value": "applies-to-everything-else" }
+      ]
+    }
+  ]
+}
